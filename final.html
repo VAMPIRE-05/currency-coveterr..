@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f4f8;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        input,
+        select,
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        
+        button {
+            cursor: pointer;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        button:hover {
+            background-color: #21867a;
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #2a9d8f;
+        }
+        
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>vampire signing in surfers</h1>
+    <h2>Currency Converter</h2>
+
+    <input type="number" id="amount" placeholder="Amount" min="0" required />
+    <select id="fromCurrency"></select>
+    <select id="toCurrency"></select>
+    <br />
+    <button onclick="convertCurrency()">Convert</button>
+
+    <div id="result"></div>
+
+    <footer>
+        Exchange rates are hardcoded for demo purposes.
+    </footer>
+
+    <script>
+        const currencyList = ["USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CNY", "CHF", "BRL"];
+
+        const exchangeRates = {
+            USD: 1,
+            EUR: 0.92,
+            INR: 83.0,
+            GBP: 0.80,
+            JPY: 154.6,
+            AUD: 1.51,
+            CAD: 1.36,
+            CNY: 7.24,
+            CHF: 0.91,
+            BRL: 5.20
+        };
+
+        const fromDropdown = document.getElementById("fromCurrency");
+        const toDropdown = document.getElementById("toCurrency");
+
+        currencyList.forEach(currency => {
+            const option1 = new Option(currency, currency);
+            const option2 = new Option(currency, currency);
+            fromDropdown.add(option1);
+            toDropdown.add(option2);
+        });
+        fromDropdown.value = "USD";
+        toDropdown.value = "INR";
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById("amount").value);
+            const from = document.getElementById("fromCurrency").value;
+            const to = document.getElementById("toCurrency").value;
+
+            if (!amount || amount <= 0) {
+                document.getElementById("result").innerText = "Please enter a valid amount.";
+                return;
+            }
+
+            // Convert to USD, then to target currency
+            const amountInUSD = amount / exchangeRates[from];
+            const convertedAmount = amountInUSD * exchangeRates[to];
+            const result = convertedAmount.toFixed(2);
+
+            document.getElementById("result").innerText = `${amount} ${from} = ${result} ${to}`;
+
+        };
+    </script>
+
+</body>
+
+</html>s
